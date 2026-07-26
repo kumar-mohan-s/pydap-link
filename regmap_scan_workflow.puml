@@ -1,0 +1,41 @@
+@startuml
+title Register Map Scanner Workflow
+
+start
+:Load CSV or XLSX register manifest;
+:Validate required fields, addresses, widths, and verification rules;
+
+if (Dry run?) then (yes)
+  :Report manifest validation result;
+  stop
+endif
+
+:Validate target profile and write policy;
+if (Writes requested?) then (yes)
+  if (Writes enabled and address is in approved scratch range?) then (yes)
+  else (no)
+    :Reject scan before connecting to hardware;
+    stop
+  endif
+endif
+
+:Open pyOCD session in attach mode;
+:Capture current core state;
+if (Any check requires a halted core?) then (yes)
+  :Halt the core;
+endif
+
+repeat
+  :Execute one register check;
+  if (Read check?) then (yes)
+    :Read value and apply record, exact, or masked verification;
+  else (no)
+    :Write approved scratch value;
+    :Read back, verify, and restore the original value;
+  endif
+repeat while (More checks?) is (yes)
+
+:Restore the core state changed by the scanner;
+:Write CSV or XLSX result report;
+stop
+@enduml

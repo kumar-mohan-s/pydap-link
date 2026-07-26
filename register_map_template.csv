@@ -1,0 +1,6 @@
+S.No,Register Name,Access,Address,Value,Width,Expected,Mask,Verification,Safety,Requires Halt,Restore
+1,CHIPID_CIDR,R,0x400E0940,,32,0x01220E00,0x0FFF0FE0,masked,read_only,true,
+2,CHIPID_EXID,R,0x400E0944,,32,,,record,read_only,true,
+3,SCB_CPUID,R,0xE000ED00,,32,0x410FC270,0xFF0FFFF0,masked,read_only,true,
+4,RSTC_SR,R,0x400E1804,,32,,,record,read_only,true,
+5,PMC_SR,R,0x400E0668,,32,,,record,read_only,true,

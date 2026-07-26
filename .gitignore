@@ -1,0 +1,5 @@
+__pycache__/
+*.py[cod]
+*_results*.csv
+*_results*.xlsx
+silicon_enablement_tool.md
